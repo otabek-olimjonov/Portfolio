@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import About, Social_networks, Skill_Categories, Skills, Projects
+
+from django.core.mail import send_mail, BadHeaderError
+from django.conf import settings
 # Create your views here.
 def index(request):
 
@@ -14,6 +17,7 @@ def index(request):
 
     projects = Projects.objects.all()
 
+
     infos = {
         'about' : about, 
         'links' : links,
@@ -21,5 +25,20 @@ def index(request):
         'skills' : skills,
         'projects' : projects
         }
+
+
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        text = request.POST['text']
+        
+
+        try:
+            send_mail(name, text, settings.EMAIL_HOST_USER, [email])
+        except BadHeaderError:
+            return HttpResponse('Invalid Header Found')
+        return redirect('/')
+
+    
 
     return render(request, 'index.html', infos)

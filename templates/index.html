@@ -135,15 +135,16 @@
                         <span class="contact__text">{{about.adress}}</span>
                     </div>
 
-                    <form action="" class="contact__form">
+                    <form action="" class="contact__form" method="post">
+                        {% csrf_token %}
                         <div class="contact__inputs">
-                            <input type="text" placeholder="Name" class="contact__input">
-                            <input type="mail" placeholder="Email" class="contact__input">
+                            <input type="text" placeholder="Name" class="contact__input" name="name">
+                            <input type="mail" placeholder="Email" class="contact__input" name="email">
                         </div>
 
-                        <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
+                        <textarea name="text" id="" cols="0" rows="10" class="contact__input"></textarea>
 
-                        <input type="submit" value="Enviar" class="contact__button">
+                        <input type="submit" value="Send" class="contact__button">
                     </form>
                 </div>
             </section>
