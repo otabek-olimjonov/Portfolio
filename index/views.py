@@ -34,7 +34,7 @@ def index(request):
         
 
         try:
-            send_mail(name, text, settings.EMAIL_HOST_USER, [email])
+            send_mail(email, name + text, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER])
         except BadHeaderError:
             return HttpResponse('Invalid Header Found')
         return redirect('/')
